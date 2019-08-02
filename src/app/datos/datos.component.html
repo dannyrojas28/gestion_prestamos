@@ -1,0 +1,125 @@
+<div class="container">
+        <!-- Content here -->
+    <div class="row ">
+        <div class="offset-md-4 col-md-4 col-sm-12" style="margin-top:10%" [hidden]="datospersonales" >
+            <p class="h4 mb-4 text-center">Bienvenido a Prestamos</p><br>
+            <p class="text-center">Si deseas solicitar un prestamo, diligencia la información que a continuación es requerida</p>
+            <mdb-card >
+                <!--Card content-->
+                <mdb-card-body>
+                      
+                    <!--Text-->
+                    <mdb-card-text> 
+
+                        <div class=" p-5">
+                            <form [formGroup]="myForm" novalidate (ngSubmit)="ValidateCedula()">
+                                <p class="h4 mb-4 text-center">Ingresa tus datos Personales</p>
+                                <!-- Email -->
+                                <span>Cédula</span>
+                                <input type="text" formControlName="cedula" class="form-control mb-4" placeholder="Nº Cédula" [(ngModel)]="cedula"  [readonly]="readonly_cedula" >
+                                <div class="alert alert-danger" role="alert" [hidden]="alert_cedula">
+                                        {{error_cedula}}
+                                </div>
+                                <div class="alert alert-danger" role="alert" [hidden]="myForm.valid">
+                                       Debes ingresar solo números
+                                </div>
+
+                                <div [hidden]="botoncedula" class="text-center"><button mdbBtn type="submit" color="info"  outline="true" mdbWavesEffect [disabled]="myForm.invalid">Validar</button></div>
+                                <div [hidden]="otros_datos">
+                                        <span>Nombres</span>
+                                        <input type="text" formControlName="nombres" class="form-control mb-4" placeholder="Nombres" [(ngModel)]="nombres" >
+                                        <div class="alert alert-danger" role="alert" [hidden]="alert_nombres">
+                                                Debes ingresar tu nombre
+                                        </div>
+                                        <span>Appellidos</span>
+                                        <input type="text" formControlName="apellidos" class="form-control mb-4" placeholder="Apellidos" [(ngModel)]="apellidos" >
+                                        <div class="alert alert-danger" role="alert" [hidden]="alert_apellidos">
+                                                Debes ingresar tus apellidos
+                                        </div>
+                                        <span>Fecha Nacimiento</span>
+                                        <input type="date" formControlName="fecha_nacimiento" class="form-control mb-4"[(ngModel)]="fecha_nacimiento" >
+                                        <div class="alert alert-danger" role="alert" [hidden]="alert_fechan">
+                                                {{error_fechan}}
+                                        </div>
+
+                                        <div class="text-center"><button mdbBtn (click)="DatosPrincipales()" color="info"  outline="true" mdbWavesEffect>Siguiente</button> </div>
+                                </div>
+                                <!-- Sign in button -->
+                            </form>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <div class="offset-md-2 col-md-8 col-sm-12" style="margin-top:10%" [hidden]="datoslaborales" >
+                <p class="h4 mb-4 text-center">Estas a un paso de ser APROBADO</p><br>
+                <p class="text-center">Diligencia tu información Profesional</p>
+                <mdb-card >
+                    <!--Card content-->
+                    <mdb-card-body>
+                          
+                        <!--Text-->
+                        <mdb-card-text> 
+    
+                            <div class=" p-5">
+                                <form [formGroup]="myForm2" validate (ngSubmit)="ValidateLaboral()" [hidden]="form2">
+                                    <p class="h4 mb-4 text-center">Ingresa tus datos Laborales</p>
+                                    <div class="row">
+                                        <!-- Email -->
+                                        <div class="col-md-8">
+                                            <span>Nombre empresa</span>
+                                            <input type="text" formControlName="empresa" class="form-control mb-4" placeholder="Nombre Empresa" [(ngModel)]="empresa" >
+                                            <div class="alert alert-danger" role="alert" [hidden]="alert_empresa">
+                                                Debes Ingresar el nombre de la empresa
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span>NIT</span>
+                                            <input type="text" formControlName="nit" class="form-control mb-4" placeholder="nit" [(ngModel)]="nit" >
+                                            <div class="alert alert-danger" role="alert" [hidden]="alert_nit">
+                                                Debes ingresar el NIT de la empresa
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span>Salario</span>
+                                            <input type="text" formControlName="salario" class="form-control mb-4" placeholder="5000000" [(ngModel)]="salario" min="1">
+                                            <div class="alert alert-danger" role="alert" [hidden]="alert_salario">
+                                               {{error_salario}}
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6">   
+                                            <span>Fecha Ingreso</span>
+                                            <input type="date" formControlName="fecha_ingreso" class="form-control mb-4" [(ngModel)]="fechaI" >
+                                            <div class="alert alert-danger" role="alert" [hidden]="alert_fechaI">
+                                                {{error_fechaI}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                                <div class="alert alert-danger" role="alert" [hidden]="myForm2.valid">
+                                                        Debes escribir solo números en los campos numericos
+                                                </div>
+                                                <button mdbBtn (click)="Atras()" color="danger"  outline="true" mdbWavesEffect >Atras</button> 
+                                                <button mdbBtn (click)="DatosPrincipales()" color="info"  outline="true" mdbWavesEffect [disabled]="myForm2.invalid">Solicitar Prestamo</button> 
+                                            </div>
+                                    </div>
+                                    <!-- Sign in button -->
+                                </form>
+                              
+                                <div class="alert alert-danger" role="alert" [hidden]="alert_prestamo">
+                                        {{error_prestamo}}
+                                </div>
+                                <div class="alert alert-success" role="alert" [hidden]="alert_prestamook">
+                                        {{success_prestamo}}
+                                </div>
+                                <div class="col-md-12 text-center" [hidden]="boton_prestamo"><br>
+                                        <a mdbBtn href="/" color="info"  outline="true" mdbWavesEffect >Solicitar Nuevo Prestamo</a> 
+                                    </div>
+                            </div>
+                        </mdb-card-text>
+                    </mdb-card-body>
+                </mdb-card>
+                
+            </div>
+    </div>
+  </div>
